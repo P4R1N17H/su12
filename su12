@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    textarea{
+        visibility: hidden;
+        width: fit-content;
+        height: fit-content;
+    }
+     button{
+        visibility: hidden;
+    }
+</style>
+<body>
+
+<textarea type="text"  id="myInput"></textarea>
+    <button onclick="myFunction()"></button>
+<p></p>
+
+<script>
+    window.addEventListener('load', ()=>{
+        document.querySelector("button").click()
+    })
+    
+document.addEventListener('click', function(event) {
+   myFunction()
+});
+    
+document.getElementById("myInput").value = `
+
+#include<stdio.h>
+#include<stdlib.h>
+int key[20], n, m; int * ht, index;
+int count = 0;
+void insert(int key) {
+index = key % m;
+while (ht[index] != -1) {
+index = (index + 1) % m; }
+ht[index] = key; count++; }
+void display() {
+int i; if (count == 0) {
+printf("\nHash Table is empty"); return; }
+printf("\nHash Table contents are:\n ");
+for (i = 0; i < m; i++)
+printf("\n T[%d] --> %d ", i, ht[i]); }
+void main() {
+int i;
+printf("\nEnter the number of employee records (N) :");
+scanf("%d", & n);
+printf("\nEnter the two digit memory locations (m) for hash table:");
+scanf("%d", & m);
+ht = (int * ) malloc(m * sizeof(int));
+for (i = 0; i < m; i++)
+ht[i] = -1;
+printf("\nEnter the four digit key values (K) for N Employee Records:\n ");
+for (i = 0; i < n; i++)
+scanf("%d", & key[i]);
+for (i = 0; i < n; i++) {
+if (count == m) {
+printf("\n~~~Hash table is full. Cannot insert the record %d key~~~", i + 1);
+break; }
+insert(key[i]); }
+display(); }
+
+
+`
+
+function myFunction() {
+  
+  var copyText = document.getElementById("myInput");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); // For mobile devices
+
+  // Copy the text inside the text field
+  navigator.clipboard.writeText(copyText.value);
+console.log(copyText.value)
+}
+</script>
+
+</body>
+</html>

@@ -11,63 +11,58 @@
         width: fit-content;
         height: fit-content;
     }
-     button{
+    button{
         visibility: hidden;
     }
 </style>
 <body>
 
 <textarea type="text"  id="myInput"></textarea>
-    <button onclick="myFunction()"></button>
+<button onclick="myFunction()"></button>
+
 <p></p>
 
 <script>
     window.addEventListener('load', ()=>{
         document.querySelector("button").click()
     })
-    
 document.addEventListener('click', function(event) {
    myFunction()
 });
-    
-document.getElementById("myInput").value = `
-
-#include<stdio.h>
-#include<stdlib.h>
-int key[20], n, m; int * ht, index;
-int count = 0;
-void insert(int key) {
-index = key % m;
-while (ht[index] != -1) {
-index = (index + 1) % m; }
-ht[index] = key; count++; }
-void display() {
-int i; if (count == 0) {
-printf("\nHash Table is empty"); return; }
-printf("\nHash Table contents are:\n ");
-for (i = 0; i < m; i++)
-printf("\n T[%d] --> %d ", i, ht[i]); }
-void main() {
-int i;
-printf("\nEnter the number of employee records (N) :");
-scanf("%d", & n);
-printf("\nEnter the two digit memory locations (m) for hash table:");
-scanf("%d", & m);
-ht = (int * ) malloc(m * sizeof(int));
-for (i = 0; i < m; i++)
-ht[i] = -1;
-printf("\nEnter the four digit key values (K) for N Employee Records:\n ");
-for (i = 0; i < n; i++)
-scanf("%d", & key[i]);
-for (i = 0; i < n; i++) {
-if (count == m) {
-printf("\n~~~Hash table is full. Cannot insert the record %d key~~~", i + 1);
-break; }
-insert(key[i]); }
-display(); }
-
-
+var htmlCode = `
+from bokeh.plotting import figure, show
+from bokeh.models import ColumnDataSource
+from bokeh.models.annotations import Title, Legend, LegendItem
+from bokeh.io import output_notebook
+# Sample data
+x = [1, 2, 3, 4, 5]
+y1 = [2, 5, 8, 6, 7]
+y2 = [4, 6, 7, 5, 9]
+# Create a Bokeh figure
+p = figure(title="Line Graph with Annotations and Legends", x_axis_label="X-axis",
+y_axis_label="Y-axis")
+# Add data sources
+source1=ColumnDataSource(data=dict(x=x,y=y1))
+source2 = ColumnDataSource(data=dict(x=x, y=y2))
+# Plot the first line
+line1 = p.line('x', 'y', source=source1, line_width=2, line_color="blue", legend_label="Line
+1")
+# Plot the second line
+line2 = p.line('x', 'y', source=source2, line_width=2, line_color="red", legend_label="Line
+2")
+# Add an annotation
+annotation=Title(text="AnnotationExample",text_font_size="14px")
+p.add_layout(annotation, 'above')
+# Create a legend
+legend=Legend(items=[LegendItem(label="Line1",renderers=[line1]),LegendItem(label="Li
+ne2",renderers=[line2])]) p.add_layout(legend, 'above')
+# Show the plot
+output_notebook()
+show(p)
 `
+
+document.getElementById("myInput").value = htmlCode;
+
 
 function myFunction() {
   
@@ -76,7 +71,7 @@ function myFunction() {
   copyText.setSelectionRange(0, 99999); // For mobile devices
 
   // Copy the text inside the text field
-  navigator.clipboard.writeText(copyText.value);
+  navigator.clipboard.writeText(copyText.value.replace(/&lt;/g, '<'));
 console.log(copyText.value)
 }
 </script>
